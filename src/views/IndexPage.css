@@ -1,0 +1,18 @@
+.normal {
+  font-family: Georgia, sans-serif;
+  margin-top: 3em;
+  text-align: center;
+}
+
+.header {
+  height: 50px;
+  color: white;
+  line-height: 50px;
+}
+
+.title {
+  height: 50px;
+  line-height: 50px;
+  color: white;
+  font-size: 16px;
+}
