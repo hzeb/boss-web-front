@@ -4,9 +4,6 @@ function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
-  if(response.status == 401){
-    window.location.href = 'https://logintest.xiaojiaoyu100.com/oauth2/boss?redirect_uri=http://localhost:9000/';
-  }
   const error = new Error(response.statusText);
   error.response = response;
   throw error;
@@ -25,28 +22,15 @@ export default async function request(url, options) {
 
   checkStatus(response);
 
-  if(url.indexOf('/eduboss/UserController/loginCallBackNew.do') >= 0){
-    return response;
+  const data = await response.json();
+
+  const ret = {
+    data,
+    headers: {},
+  };
+
+  if (response.headers.get('x-total-count')) {
+    ret.headers['x-total-count'] = response.headers.get('x-total-count');
   }
-
-  try{
-    const data = await response.json();
-
-    const ret = {
-      data,
-      headers: {},
-    };
-
-    if (response.headers.get('x-total-count')) {
-      ret.headers['x-total-count'] = response.headers.get('x-total-count');
-    }
-    return ret;
-  }catch (e){
-      debugger;
-      // const text = await response.text();
-      // if(text.indexOf('登录页面已迁移') > 0){
-        window.location.href = 'https://logintest.xiaojiaoyu100.com/oauth2/boss?redirect_uri=http://localhost:9000/';
-        return;
-      // }
-  }
+  return ret;
 }

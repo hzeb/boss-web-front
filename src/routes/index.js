@@ -1,8 +1,8 @@
 import React from 'react';
 import { Router } from 'dva/router';
+import IndexPage from 'VIEW/IndexPage'
 import users from 'ROUTE/users';
-import IndexPage from 'VIEW/IndexPage';
-import request from 'UTIL/request';
+import registerModel from 'UTIL/modelsManager';
 
 function RouterConfig({ history, app }) {
   const routes = [{
@@ -10,27 +10,20 @@ function RouterConfig({ history, app }) {
     component: IndexPage,
     getIndexRoute(nextState, cb) {
       require.ensure([], function (require) {
-        cb(null, { component: require('../views/home') });
+        cb(null, { component: require('VIEW/home') });
       })
     },
-    onEnter: function (nextState, replaceState) {
-      if(!nextState.isLogin){
-        var code = nextState.location.query.code;
-        if(code){
-          request(`/eduboss/UserController/loginCallBackNew.do?code=${code}`).then(function(res){
-            if(res.status == '200'){
-              debugger;
-              nextState.isLogin == true;
-              replaceState(nextState);
-            }
-          });
-        }else {
-          window.location.href = 'https://logintest.xiaojiaoyu100.com/oauth2/boss?redirect_uri=http://localhost:9000/';
-        }
-      }
-      console.log(nextState);
-    },
     childRoutes: [
+      {
+        path: 'login',
+        name: 'Login',
+        getComponent(nextState, cb) {
+          require.ensure([], (require) => {
+            registerModel(app, require('../models/login'));
+            cb(null, require('../views/login'));
+          });
+        }
+      },
       ...users(app)
     ]
   }];

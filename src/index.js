@@ -12,6 +12,10 @@ const app = dva({
   history: browserHistory,
   onError(e) {
     message.error(e.message, ERROR_MSG_DURATION);
+    debugger;
+    if(e.response.status == 401){
+      browserHistory.push('/');
+    }
   },
 });
 

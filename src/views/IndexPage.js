@@ -8,11 +8,11 @@ const { Header, Content, Sider } = Layout;
 
 function IndexPage({ children, location }) {
   return (
-    <Layout>
+    <Layout style={{ minHeight: '100vh' }}>
       <Header className={styles.header}>
         <div className={styles.title}>BOSS运营管理系统</div>
       </Header>
-      <Layout>
+      <Layout style={{ flex: 1 }}>
         <Sider width={200} style={{ background: '#fff' }}>
           <BossSider location={ location }></BossSider>
         </Sider>

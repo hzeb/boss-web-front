@@ -20,6 +20,9 @@ function Header({ location, theme }) {
       <Menu.Item key="/antd">
         <a href="https://github.com/dvajs/dva">dva</a>
       </Menu.Item>
+      <Menu.Item key="/login">
+        <Link to="/login">Login</Link>
+      </Menu.Item>
     </Menu>
   );
 }

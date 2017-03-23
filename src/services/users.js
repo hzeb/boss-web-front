@@ -2,9 +2,7 @@ import request from 'UTIL/request';
 import { PAGE_SIZE } from '../constants';
 
 export function fetch({ page }) {
-  // return request(`/api/users?_page=${page}&_limit=${PAGE_SIZE}`);
-  // return request(`/sparkoa/getLoginCount`);
-  return request(`/eduboss/SystemAction/getMenuList.do`);
+  return request(`/api/users?_page=${page}&_limit=${PAGE_SIZE}`);
 }
 
 export function remove(id) {
@@ -28,5 +26,6 @@ export function create(values) {
 }
 
 export function login(code) {
-  return request(`/eduboss/UserController/loginCallBackNew.do?code=${code}`);
+  debugger;
+  return request(`/sparkoa/baseUser/getCurrentUser`);
 }

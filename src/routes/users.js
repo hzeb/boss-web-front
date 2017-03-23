@@ -9,6 +9,6 @@ export default function(app){
         registerModel(app, require('../models/users'));
         cb(null, require('../views/Users'));
       });
-    },
+    }
   }]
 }
