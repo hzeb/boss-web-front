@@ -1,18 +1,12 @@
 import * as loginService from 'SERVICE/login';
 
 export default {
-  namespace: 'index',
+  namespace: 'login',
   state: {
-    account: null
-  },
-  reducers: {
-    save(state, { payload: { account } }) {
-      return { ...state, account };
-    },
   },
   effects: {
-    *login(action, { call, put,select }) {
-      const account  = yield select(state => state.index.account);
+    *login(action, { call, put, select }) {
+      const account  = yield select(state => state.indexPage.account);
       if(account){
         return;
       }
@@ -28,7 +22,7 @@ export default {
     },
     *getAccount(action,{ call, put}) {
       const { data } = yield call(loginService.getAccount);
-      yield put({ type: 'save', payload: { account:data }});
+      yield put({ type: 'indexPage/save', payload: { account:data }});
     }
   },
   subscriptions: {

@@ -13,7 +13,11 @@ export default {
     },
   },
   effects: {
-    *fetch({ payload: { page = 1 } }, { call, put }) {
+    *fetch({ payload: { page = 1 } }, { call, put, select }) {
+      const {list, total, page:curpage }  = yield select(state => state.users);
+      if(list && total && curpage){
+        return;
+      }
       const { data, headers } = yield call(usersService.fetch, { page });
       yield put({
         type: 'save',
@@ -49,7 +53,8 @@ export default {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
         if (pathname === '/users') {
-          dispatch({ type: 'login', payload: query });
+          // dispatch({ type: 'login', payload: query });
+          dispatch({ type: 'fetch', payload: { page:1 } });
         }
       });
     },

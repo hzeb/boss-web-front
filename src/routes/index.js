@@ -7,7 +7,12 @@ import registerModel from 'UTIL/modelsManager';
 function RouterConfig({ history, app }) {
   const routes = [{
     path: '/',
-    component: IndexPage,
+    getComponent(nextState, cb) {
+      require.ensure([], (require) => {
+        registerModel(app, require('../models/IndexPage'));
+        cb(null, require('../views/IndexPage'));
+        });
+    },
     getIndexRoute(nextState, cb) {
       require.ensure([], function (require) {
         cb(null, { component: require('VIEW/home') });
@@ -28,9 +33,7 @@ function RouterConfig({ history, app }) {
     ]
   }];
 
-  return <Router history = { history }
-  routes = { routes }
-  />;
+  return <Router history = { history } routes = { routes }/>;
 }
 
 export default RouterConfig;

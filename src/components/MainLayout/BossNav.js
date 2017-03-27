@@ -1,14 +1,21 @@
 import { Menu, Icon } from 'antd';
 import { Link } from 'dva/router';
 
-function Header({ location, theme }) {
+function BossNav({ location, theme, navbars }) {
   return (
     <Menu
-      selectedKeys={[location.pathname]}
+      selectedKeys={ [location.pathname] }
       mode="horizontal"
-      theme={theme || "dark"}
+      theme={ theme || "dark" }
     >
-      <Menu.Item key="/">
+      {navbars.map(function(navbar) {
+        return (
+          <Menu.Item key={ navbar.key }>
+            <Link to={ navbar.key }>{ navbar.item.props.name }</Link>
+          </Menu.Item>
+        );
+      })}
+      { /*<Menu.Item key="/">
         <Link to="/"><Icon type="home" />Home</Link>
       </Menu.Item>
       <Menu.Item key="/users">
@@ -22,9 +29,9 @@ function Header({ location, theme }) {
       </Menu.Item>
       <Menu.Item key="/login">
         <Link to="/login">Login</Link>
-      </Menu.Item>
+      </Menu.Item> */ }
     </Menu>
   );
 }
 
-export default Header;
+export default BossNav;

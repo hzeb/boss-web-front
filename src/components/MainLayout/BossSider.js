@@ -1,7 +1,8 @@
+import React from 'react';
 import { Menu, Icon } from 'antd';
 import { Link } from 'dva/router';
 const { SubMenu } = Menu;
-function Header({ location }) {
+function BossSider({ location, addTab }) {
   return (
     <Menu
       mode="inline"
@@ -10,12 +11,13 @@ function Header({ location }) {
       style={{ height: '100%' }}
       selectedKeys={[location.pathname]}
       theme="white"
+      onClick={ addTab }
       >
      <SubMenu key="sub1" title={<span><Icon type="user" />subnav 1</span>}>
-        <Menu.Item key="1">option1</Menu.Item>
-        <Menu.Item key="2">option2</Menu.Item>
-        <Menu.Item key="3">option3</Menu.Item>
-        <Menu.Item key="4">option4</Menu.Item>
+        <Menu.Item key="/" name="Home">Home</Menu.Item>
+        <Menu.Item key="/users" name="Users">Users</Menu.Item>
+        <Menu.Item key="/404" name="404">404</Menu.Item>
+        <Menu.Item key="/login" name="Login">Login</Menu.Item>
       </SubMenu>
       <SubMenu key="sub2" title={<span><Icon type="laptop" />subnav 2</span>}>
         <Menu.Item key="5">option5</Menu.Item>
@@ -33,4 +35,8 @@ function Header({ location }) {
   );
 }
 
-export default Header;
+BossSider.propTypes = {
+  addTab: React.PropTypes.func.isRequired
+};
+
+export default BossSider;

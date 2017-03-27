@@ -9,7 +9,7 @@ function checkStatus(response) {
   throw error;
 }
 
-const defaultOptions = {credentials: 'same-origin'};
+const defaultOptions = { credentials: 'same-origin' };
 /**
  * Requests a URL, returning a promise.
  *
@@ -18,7 +18,7 @@ const defaultOptions = {credentials: 'same-origin'};
  * @return {object}           An object containing either "data" or "err"
  */
 export default async function request(url, options) {
-  const response = await fetch(url, Object.assign({},defaultOptions,options));
+  const response = await fetch(url, Object.assign({}, defaultOptions, options));
 
   checkStatus(response);
 

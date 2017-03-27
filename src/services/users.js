@@ -26,6 +26,5 @@ export function create(values) {
 }
 
 export function login(code) {
-  debugger;
   return request(`/sparkoa/baseUser/getCurrentUser`);
 }
